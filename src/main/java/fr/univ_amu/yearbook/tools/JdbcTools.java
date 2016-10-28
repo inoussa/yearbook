@@ -1,10 +1,10 @@
-package main.java.fr.univ_amu.yearbook.tools;
+package fr.univ_amu.yearbook.tools;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import main.java.fr.univ_amu.yearbook.tools.exception.JdbcToolsException;
+import fr.univ_amu.yearbook.tools.exception.JdbcToolsException;
 
 /**
  * <b>JdbcTools</b> est la classe qui permet d'initialiser et de créer

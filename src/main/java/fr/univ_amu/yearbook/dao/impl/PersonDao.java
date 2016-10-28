@@ -1,4 +1,4 @@
-package main.java.fr.univ_amu.yearbook.dao.impl;
+package fr.univ_amu.yearbook.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,11 +8,11 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import main.java.fr.univ_amu.yearbook.bean.Person;
-import main.java.fr.univ_amu.yearbook.dao.exception.PersonDaoException;
-import main.java.fr.univ_amu.yearbook.interfaces.IPersonDao;
-import main.java.fr.univ_amu.yearbook.tools.JdbcTools;
-import main.java.fr.univ_amu.yearbook.tools.exception.JdbcToolsException;
+import fr.univ_amu.yearbook.bean.Person;
+import fr.univ_amu.yearbook.dao.exception.PersonDaoException;
+import fr.univ_amu.yearbook.interfaces.IPersonDao;
+import fr.univ_amu.yearbook.tools.JdbcTools;
+import fr.univ_amu.yearbook.tools.exception.JdbcToolsException;
 
 /**
  * <b>PersonDao</b> est la classe qui implemente l'interface

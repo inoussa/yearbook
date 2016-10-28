@@ -1,10 +1,10 @@
-package main.java.fr.univ_amu.yearbook.interfaces;
+package fr.univ_amu.yearbook.interfaces;
 
 import java.util.Collection;
 
-import main.java.fr.univ_amu.yearbook.bean.Person;
-import main.java.fr.univ_amu.yearbook.dao.exception.PersonDaoException;
-import main.java.fr.univ_amu.yearbook.tools.exception.JdbcToolsException;
+import fr.univ_amu.yearbook.bean.Person;
+import fr.univ_amu.yearbook.dao.exception.PersonDaoException;
+import fr.univ_amu.yearbook.tools.exception.JdbcToolsException;
 
 /**
  * <b>IPersonDao</b> est l'interface qui gère les méthodes

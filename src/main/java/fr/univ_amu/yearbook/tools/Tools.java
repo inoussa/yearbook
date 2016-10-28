@@ -1,4 +1,4 @@
-package main.java.fr.univ_amu.yearbook.tools;
+package fr.univ_amu.yearbook.tools;
 
 import java.util.ResourceBundle;
 

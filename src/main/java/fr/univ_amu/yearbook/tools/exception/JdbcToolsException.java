@@ -1,4 +1,4 @@
-package main.java.fr.univ_amu.yearbook.tools.exception;
+package fr.univ_amu.yearbook.tools.exception;
 
 /**
  * <b>JdbcToolsException</b> est la classe qui gère les différentes
