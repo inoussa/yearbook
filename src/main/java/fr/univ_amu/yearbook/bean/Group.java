@@ -22,7 +22,7 @@ public class Group {
 	 * Group empty constructor.
 	 */
 	public Group(){
-		
+		super();
 	}
 
 	/**
