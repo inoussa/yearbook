@@ -1,4 +1,4 @@
-package test.java.fr.univ_amu.yearbook.dao;
+package fr.univ_amu.yearbook.dao;
 
 import static org.junit.Assert.*;
 
@@ -11,10 +11,10 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import main.java.fr.univ_amu.yearbook.bean.Person;
-import main.java.fr.univ_amu.yearbook.dao.exception.PersonDaoException;
-import main.java.fr.univ_amu.yearbook.dao.impl.PersonDao;
-import main.java.fr.univ_amu.yearbook.tools.exception.JdbcToolsException;
+import fr.univ_amu.yearbook.bean.Person;
+import fr.univ_amu.yearbook.dao.exception.DaoException;
+import fr.univ_amu.yearbook.dao.impl.PersonDao;
+import fr.univ_amu.yearbook.tools.exception.JdbcToolsException;
 
 public class PersonDaoTest {
 	PersonDao dao;
@@ -41,7 +41,7 @@ public class PersonDaoTest {
 	}
 
 	@Ignore
-	public void testFindPerson() throws PersonDaoException, JdbcToolsException {
+	public void testFindPerson() throws DaoException, JdbcToolsException {
 		Person p1 = dao.findPerson(1);
 		Person p2 = dao.findPerson(30);
 		
@@ -50,7 +50,7 @@ public class PersonDaoTest {
 	}
 
 	@Ignore
-	public void testFindAllPersons() throws PersonDaoException, JdbcToolsException {
+	public void testFindAllPersons() throws DaoException, JdbcToolsException {
 		List<Person> p = (List<Person>) dao.findAllPersons();
 		assertEquals(4, p.size());
 	}
@@ -61,7 +61,7 @@ public class PersonDaoTest {
 	}
 
 	@Ignore
-	public void testRemovePersonLong() throws PersonDaoException, JdbcToolsException {
+	public void testRemovePersonLong() throws DaoException, JdbcToolsException {
 		int count = dao.countPersons();
 		
 		dao.removePerson(10);
@@ -69,7 +69,7 @@ public class PersonDaoTest {
 	}
 
 	@Ignore
-	public void testRemovePersonPerson() throws PersonDaoException, JdbcToolsException {
+	public void testRemovePersonPerson() throws DaoException, JdbcToolsException {
 		Person p = new Person();
 		int count = dao.countPersons();
 		
@@ -79,13 +79,13 @@ public class PersonDaoTest {
 	}
 
 	@Ignore
-	public void testRemoveAllPersons() throws PersonDaoException, JdbcToolsException {
+	public void testRemoveAllPersons() throws DaoException, JdbcToolsException {
 		dao.removeAllPersons();
 		assertEquals(0, dao.countPersons());
 	}
 
 	@Ignore
-	public void testNumberOfPersons() throws PersonDaoException, JdbcToolsException {
+	public void testNumberOfPersons() throws DaoException, JdbcToolsException {
 		assertEquals(10,dao.countPersons());
 	}
 }
