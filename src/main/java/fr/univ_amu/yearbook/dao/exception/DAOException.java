@@ -16,7 +16,7 @@ public class DAOException extends RuntimeException {
 	/**
 	 * Constructor.<br>
 	 * Creates a new DAOException by indicating its cause.
-	 * @param source the source of the exception.
+	 * @param cause the source of the exception.
 	 */
 	public DAOException(Throwable cause){
 		super(cause);
