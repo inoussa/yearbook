@@ -6,7 +6,6 @@ import java.sql.Date;
  * <b>Person</b> est la classe qui permet de créer une personne
  * de l'annuaire.
  * 
- * <p>
  * Une personne de l'annuaire est caractérisée par :
  * <ul>
  * <li>Un identifiant unique.</li>
@@ -18,8 +17,6 @@ import java.sql.Date;
  * <li>Un mot de passe.</li>
  * <li>L'identifiant d'un groupe.</li>
  * </ul>
- * </p>
- * 
  * 
  * @author Aboubacar Sidy DIALLO
  * @author Inoussa ZONGO
