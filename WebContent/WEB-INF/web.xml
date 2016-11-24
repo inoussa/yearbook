@@ -18,13 +18,10 @@
     <url-pattern>*.htm</url-pattern>
   </servlet-mapping>
   
-  <!--
   <servlet-mapping>
     <servlet-name>yearbook</servlet-name>
     <url-pattern>/actions/*</url-pattern>
-  </servlet-mapping>
-   -->
-   
+  </servlet-mapping> 
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
