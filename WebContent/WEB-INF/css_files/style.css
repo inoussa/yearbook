@@ -1,0 +1,16 @@
+label {
+	float: left;
+	text-align: right;
+	margin-right: 15px;
+	width: 100px;
+}
+
+input[type=submit] {
+    margin-left: 115px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.mdpoubli {
+	margin-left: 75px;
+}
