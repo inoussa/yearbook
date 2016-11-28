@@ -100,6 +100,32 @@ public class PersonDAOImpl implements IPersonDAO {
 		}
 	}
 	
+	/**
+	 * Recherche et renvoie la personne associée à l'email.
+	 * 
+	 * @param email L'email de la personne.
+	 * @return
+	 * 		La personne dont l'email est rentré en paramètre de la méthode ou null. 
+	 * @throws DAOException Si la personne rattachée à l'email n'existe pas ou si la connexion échoue.
+	 */
+	@Override
+	public Person findPerson(String email) throws DAOException {
+		
+		try (Connection conn = dbManager.newConnection()) {
+			IResultSetToBean<Person> mapper = new ResultSetToBeanImpl<Person>(Person.class);
+			String query = "SELECT * FROM YEARBOOK_Person WHERE email = ?";			
+			PreparedStatement st = conn.prepareStatement(query);
+			
+			st.setString(1, email);
+			ResultSet rs = st.executeQuery();
+			
+			if (rs.next())
+				return mapper.toBean(rs);
+			return null;
+		} catch (SQLException | DatabaseManagerException e){
+			throw new DAOException(e.getCause());
+		}
+	}
 	
 	/**
 	 * Retourne la liste des personnes existantes.
