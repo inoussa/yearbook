@@ -30,6 +30,16 @@ public interface IPersonDAO {
 	public Person findPerson(long id) throws DAOException;
 	
 	/**
+	 * Recherche et renvoie la personne associée à l'email.
+	 * 
+	 * @param email L'email de la personne.
+	 * @return
+	 * 		La personne dont l'email est rentré en paramètre de la méthode ou null. 
+	 * @throws DAOException Si la personne rattachée à l'email n'existe pas ou si la connexion échoue.
+	 */
+	public Person findPerson(String email) throws DAOException;
+	
+	/**
 	 * Retourne la liste des personnes existantes.
 	 * 
 	 * @return
