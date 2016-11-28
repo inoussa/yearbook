@@ -23,7 +23,7 @@ public class PersonDAOImplTest {
 	IPersonDAO personDao;
 	
 	@Test
-	public void testFindPerson() throws DAOException {
+	public void testFindPersonLong() throws DAOException {
 		List<Person> p = (List<Person>) personDao.findAllPersons();
 		long id = Long.MAX_VALUE;
 		Person p1 = personDao.findPerson(p.get(0).getId());
@@ -35,6 +35,17 @@ public class PersonDAOImplTest {
 	
 		assertNull(p2);
 		assertFalse("false", p2 instanceof Person);
+	}
+	
+	@Test
+	public void testFindPersonString() throws DAOException {
+		List<Person> p = (List<Person>) personDao.findAllPersons();
+		Person p1 = personDao.findPerson(p.get(0).getId());
+		Person p2 = personDao.findPerson(p1.getEmail());
+		
+		assertNotNull(p2);
+		assertTrue(p2 instanceof Person);
+		assertEquals(p1.getId(), p2.getId());
 	}
 
 	@Test
