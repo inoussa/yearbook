@@ -13,7 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.univ_amu.yearbook.bean.Person;
-import fr.univ_amu.yearbook.dao.exception.DatabaseManagerException;
 import fr.univ_amu.yearbook.dao.IPersonDAO;
 import fr.univ_amu.yearbook.dao.exception.DAOException;
 
@@ -24,7 +23,7 @@ public class PersonDAOImplTest {
 	IPersonDAO personDao;
 	
 	@Test
-	public void testFindPerson() throws DAOException, DatabaseManagerException {
+	public void testFindPerson() throws DAOException {
 		List<Person> p = (List<Person>) personDao.findAllPersons();
 		long id = Long.MAX_VALUE;
 		Person p1 = personDao.findPerson(p.get(0).getId());
@@ -39,7 +38,7 @@ public class PersonDAOImplTest {
 	}
 
 	@Test
-	public void testFindAllPersons() throws DAOException, DatabaseManagerException {
+	public void testFindAllPersons() throws DAOException {
 		List<Person> p = (List<Person>) personDao.findAllPersons();
 		
 		assertNotNull(p);
@@ -80,7 +79,7 @@ public class PersonDAOImplTest {
 	}
 
 	@Test
-	public void testRemovePersonLong() throws DAOException, DatabaseManagerException {
+	public void testRemovePersonLong() throws DAOException {
 		int count1;
 		int count2;
 		Person p1 = new Person();
@@ -104,7 +103,7 @@ public class PersonDAOImplTest {
 	}
 
 	@Test
-	public void testRemovePersonPerson() throws DAOException, DatabaseManagerException {
+	public void testRemovePersonPerson() throws DAOException {
 		Person p1 = new Person();
 		
 		// ajout d'une personne
@@ -128,7 +127,7 @@ public class PersonDAOImplTest {
 	}
 
 	@Test
-	public void testRemoveAllPersons() throws DAOException, DatabaseManagerException {
+	public void testRemoveAllPersons() throws DAOException {
 		List<Person> people = (List<Person>) personDao.findAllPersons();
 		
 		
@@ -150,7 +149,7 @@ public class PersonDAOImplTest {
 	}
 
 	@Test
-	public void testcountPersons() throws DAOException, DatabaseManagerException {
+	public void testcountPersons() throws DAOException {
 		int countP = personDao.countPersons();
 		
 		assertEquals(8, countP);
