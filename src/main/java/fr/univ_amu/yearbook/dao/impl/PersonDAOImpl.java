@@ -99,7 +99,8 @@ public class PersonDAOImpl implements IPersonDAO {
 			throw new DAOException(e.getCause());
 		}
 	}
-
+	
+	
 	/**
 	 * Retourne la liste des personnes existantes.
 	 * 
@@ -137,13 +138,13 @@ public class PersonDAOImpl implements IPersonDAO {
 		if (p.getId() == null) {
 			String[] columnNameList = {"lastName", "firstName","email", "homePage", "birthDate", "pwd", "idG"};
 			String query = "INSERT INTO YEARBOOK_Person (lastName, firstName, email, homePage, birthDate, pwd, idG)"
-					+ "VALUES (?, ?, ?, ?, ?, PASSWORD(?), ?)";
+					+ "VALUES (UPPER(?), ?, ?, ?, ?, PASSWORD(?), ?)";
 			mapper.insertOrUpdate(p, query, columnNameList);
 		}
 		else {
 			String[] columnNameList = {"lastName", "firstName","email", "homePage", "birthDate", "pwd", "idG", "id"};
 			String query = "UPDATE YEARBOOK_Person "
-					+ "SET lastName = ?, firstName = ?, email = ?, homePage = ?, birthDate = ?, pwd = ?, idG = ? "
+					+ "SET lastName = UPPER(?), firstName = ?, email = ?, homePage = ?, birthDate = ?, pwd = ?, idG = ? "
 					+ "WHERE id = ?";
 			mapper.insertOrUpdate(p, query, columnNameList);
 		}
