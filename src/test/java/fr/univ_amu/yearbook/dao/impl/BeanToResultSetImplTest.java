@@ -47,10 +47,18 @@ public class BeanToResultSetImplTest {
 		dao.removePerson(p1);
 		
 		Person p2 = dao.findPerson(p.get(0).getId());
+		String pwdTmp = p2.getEmail();
 		p2.setEmail("new_mail@localhost.fr");
 		String[] columnNameList = {"email", "id"};
 		String queryUpdate = "UPDATE YEARBOOK_Person SET email = ? WHERE id = ?";
 		int result = mapper.insertOrUpdate(p2, queryUpdate, columnNameList);
+		assertEquals (1, result);
+		assertNotEquals(-1, result);
+		
+		p2.setEmail(pwdTmp);
+		String[] columnNameListBis = {"email", "id"};
+		queryUpdate = "UPDATE YEARBOOK_Person SET email = ? WHERE id = ?";
+		result = mapper.insertOrUpdate(p2, queryUpdate, columnNameListBis);
 		assertEquals (1, result);
 		assertNotEquals(-1, result);
 	}
