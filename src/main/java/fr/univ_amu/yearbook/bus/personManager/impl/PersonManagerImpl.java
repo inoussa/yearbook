@@ -61,6 +61,23 @@ public class PersonManagerImpl implements IPersonManager {
 			throw new ManagerException(e.getCause());
 		}
 	}
+	
+	/**
+	 * Recherche et renvoie la personne associée à l'email.
+	 * 
+	 * @param email L'email de la personne.
+	 * @return
+	 * 		La personne dont l'email est rentré en paramètre de la méthode ou null. 
+	 * @throws ManagerException Si la personne rattachée à l'email n'existe pas ou si la connexion échoue.
+	 */
+	@Override
+	public Person findPerson(String email) throws ManagerException {
+		try {
+			return dao.findPerson(email);
+		} catch (DAOException e) {
+			throw new ManagerException(e.getCause());
+		}
+	}
 
 	/**
 	 * Retourne la liste des personnes existantes.
