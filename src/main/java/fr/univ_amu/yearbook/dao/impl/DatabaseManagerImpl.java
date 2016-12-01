@@ -33,6 +33,7 @@ import fr.univ_amu.yearbook.dao.exception.DatabaseManagerException;
 @Service("connectionManager")
 @Primary
 public class DatabaseManagerImpl implements IDatabaseManager {
+	final String DRIVER_PROPERTY = "driver";
 	final String URL_PROPERTY = "url";
 	final String USER_PROPERTY = "user";
 	final String PASSWORD_PROPERTY = "password";
@@ -55,6 +56,7 @@ public class DatabaseManagerImpl implements IDatabaseManager {
 	
 	@PostConstruct
 	public void init() throws DatabaseManagerException{
+		String driver;
 		String url;
 		String user;
 		String password;
@@ -71,6 +73,7 @@ public class DatabaseManagerImpl implements IDatabaseManager {
 		
 		try {
 			properties.load(file);
+			driver = properties.getProperty(DRIVER_PROPERTY);
 			url = properties.getProperty(URL_PROPERTY);
 			user = properties.getProperty(USER_PROPERTY);
 			password = properties.getProperty(PASSWORD_PROPERTY);
@@ -83,6 +86,7 @@ public class DatabaseManagerImpl implements IDatabaseManager {
 
 		
 		ds = new BasicDataSource();
+		ds.setDriverClassName(driver);
 		ds.setUrl(url);
 		ds.setUsername(user);
 		ds.setPassword(password);
