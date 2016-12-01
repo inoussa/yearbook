@@ -30,6 +30,16 @@ public interface IPersonManager {
 	public Person findPerson(long id) throws ManagerException;
 	
 	/**
+	 * Recherche et renvoie la personne associée à l'email.
+	 * 
+	 * @param email L'email de la personne.
+	 * @return
+	 * 		La personne dont l'email est rentré en paramètre de la méthode ou null. 
+	 * @throws ManagerException Si la personne rattachée à l'email n'existe pas ou si la connexion échoue.
+	 */
+	public Person findPerson(String email) throws ManagerException;
+	
+	/**
 	 * Retourne la liste des personnes existantes.
 	 * 
 	 * @return
