@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import fr.univ_amu.yearbook.bean.Group;
 import fr.univ_amu.yearbook.dao.IDatabaseManager;
 import fr.univ_amu.yearbook.dao.IGroupDAO;
+import fr.univ_amu.yearbook.dao.exception.DAOException;
 import fr.univ_amu.yearbook.bean.Person;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -55,7 +56,7 @@ public class GroupDAOImplTest {
 	}
 
 	@Test
-	public void testFindInteger() {
+	public void testFindInteger() throws DAOException {
 		Group group = groupDAO.find(1L);
 		assertTrue(group != null);
 		assertTrue(group.getId() == 1);
@@ -66,13 +67,13 @@ public class GroupDAOImplTest {
 	}
 
 	@Test
-	public void testFind() {
+	public void testFind() throws DAOException {
 		Collection<Group> groups = groupDAO.find();
 		assertEquals(groups.size(),9);
 	}
 
 	@Test
-	public void testSaveOrUpdate() throws SQLException {
+	public void testSaveOrUpdate() throws SQLException, DAOException {
 		//insert
 		Group group = new Group();
 		Timestamp timestamp =  new Timestamp(System.currentTimeMillis());
@@ -102,7 +103,7 @@ public class GroupDAOImplTest {
 	}
 
 	@Test
-	public void testDeleteInteger() throws SQLException {
+	public void testDeleteInteger() throws SQLException, DAOException {
 		//Add a new group
 		PreparedStatement pstm = conn.prepareStatement("INSERT INTO yearbook_group values(?,?)",Statement.RETURN_GENERATED_KEYS);
 		pstm.setObject(1, null);
@@ -137,7 +138,7 @@ public class GroupDAOImplTest {
 	}
 
 	@Test
-	public void testDeleteGroup() {
+	public void testDeleteGroup() throws DAOException {
 		Group group = new Group();
 		group.setId(13L);
 		int num = groupDAO.delete(group);
@@ -145,7 +146,7 @@ public class GroupDAOImplTest {
 	}
 
 	@Test
-	public void testGetPersonsInteger(){
+	public void testGetPersonsInteger() throws DAOException{
 		Collection<Person> persons = groupDAO.findPersons(1L);
 		assertTrue(persons.size()==3);
 		
@@ -157,7 +158,7 @@ public class GroupDAOImplTest {
 	}
 
 	@Test
-	public void testGetPersonsGroup(){
+	public void testGetPersonsGroup() throws DAOException{
 		Group group = new Group();
 		group.setId(1L);
 		Collection<Person> persons = groupDAO.findPersons(group);
