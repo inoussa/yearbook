@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import fr.univ_amu.yearbook.bean.Person;
 import fr.univ_amu.yearbook.bus.exception.ManagerException;
 import fr.univ_amu.yearbook.dao.IPersonDAO;
+import fr.univ_amu.yearbook.dao.exception.DAOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring_test.xml"})
@@ -26,7 +27,7 @@ public class LoginManagerImplTest {
 	IPersonDAO personDao;
 	
 	@Test
-	public void testPersonAssociedLoginPwd() throws ManagerException {
+	public void testPersonAssociedLoginPwd() throws ManagerException, DAOException {
 		Person p = new Person();
 		
 		p.setLastName("JOBS");
