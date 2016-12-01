@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.univ_amu.yearbook.bean.Group;
 import fr.univ_amu.yearbook.dao.IGroupDAO;
+import fr.univ_amu.yearbook.dao.exception.DAOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/resources/spring.xml"})
@@ -25,7 +26,7 @@ public class SearchImplTest {
 
 	
 	@Test
-	public void testFilter() {
+	public void testFilter() throws DAOException {
 		Collection<Group> groups = groupDAO.find();
 		Collection<Group> filteredGroups =  searcher.filter(groups, (Group object) ->{
 				if(object.getName().contains("FED")) return true;
