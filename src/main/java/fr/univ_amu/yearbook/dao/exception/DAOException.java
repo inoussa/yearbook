@@ -4,10 +4,11 @@ package fr.univ_amu.yearbook.dao.exception;
  * DAOException class is designed to represent and encapsulate the exceptions from the 
  * differents operations to datasources.
  * 
- * @author ZONGO
- *@version 1.0
+ * @author Aboubacar Sidy DIALLO
+ * @author Inoussa ZONGO
+ *	@version 1.0
  */
-public class DAOException extends RuntimeException {
+public class DAOException extends Exception {
 	/**
 	 * 
 	 */
