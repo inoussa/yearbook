@@ -22,7 +22,7 @@ public class PersonManagerImplTest {
 	IPersonManager personManager;
 	
 	@Test
-	public void testFindPerson() throws ManagerException {
+	public void testFindPersonLong() throws ManagerException {
 		List<Person> p = (List<Person>) personManager.findAllPersons();
 		long id = Long.MAX_VALUE;
 		Person p1 = personManager.findPerson(p.get(0).getId());
@@ -34,6 +34,17 @@ public class PersonManagerImplTest {
 	
 		assertNull(p2);
 		assertFalse("false", p2 instanceof Person);
+	}
+	
+	@Test
+	public void testFindPersonString() throws ManagerException {
+		List<Person> p = (List<Person>) personManager.findAllPersons();
+		Person p1 = personManager.findPerson(p.get(0).getId());
+		Person p2 = personManager.findPerson(p1.getEmail());
+		
+		assertNotNull(p2);
+		assertTrue(p2 instanceof Person);
+		assertEquals(p1.getId(), p2.getId());
 	}
 
 	@Test
