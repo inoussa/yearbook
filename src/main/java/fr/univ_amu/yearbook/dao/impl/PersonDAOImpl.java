@@ -156,10 +156,11 @@ public class PersonDAOImpl implements IPersonDAO {
 	 * Création ou mise à jour des données d'une personne.
 	 * 
 	 * @param p La personne.
+	 * @throws DAOException Si la connexion échoue ou si mapper déclenche une exception. 
 	 * @see Person
 	 */
 	@Override
-	public void saveOrUpdatePerson(Person p) {
+	public void saveOrUpdatePerson(Person p) throws DAOException {
 		
 		if (p.getId() == null) {
 			String[] columnNameList = {"lastName", "firstName","email", "homePage", "birthDate", "pwd", "idG"};
@@ -200,10 +201,11 @@ public class PersonDAOImpl implements IPersonDAO {
 	 * Suppression de la personne.
 	 * 
 	 * @param p La personne à supprimer.
+	 * @throws DAOException Si la connexion échoue.
 	 * @see Person
 	 */
 	@Override
-	public void removePerson(Person p) {
+	public void removePerson(Person p) throws DAOException {
 		if (p != null)
 			removePerson(p.getId());
 	}
@@ -233,9 +235,10 @@ public class PersonDAOImpl implements IPersonDAO {
 	 * Calcul le nombre de personnes de la base.
 	 * 
 	 * @return Le nombre de personnes.
+	 * @throws DAOException Si la connexion échoue.
 	 */
 	@Override
-	public int countPersons() {
+	public int countPersons() throws DAOException {
 		return findAllPersons().size();
 	}
 
