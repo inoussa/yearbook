@@ -52,9 +52,10 @@ public interface IPersonDAO {
 	 * Création ou mise à jour des données d'une personne.
 	 * 
 	 * @param p La personne.
+	 * @throws DAOException Si la connexion échoue ou si mapper déclenche une exception. 
 	 * @see Person
 	 */
-	public void saveOrUpdatePerson(Person p);
+	public void saveOrUpdatePerson(Person p) throws DAOException;
 	
 	/**
 	 * Suppression de la personne associé à l'identifiant id.
@@ -68,9 +69,10 @@ public interface IPersonDAO {
 	 * Suppression de la personne.
 	 * 
 	 * @param p La personne à supprimer.
+	 * @throws DAOException Si la connexion échoue.
 	 * @see Person
 	 */
-	public void removePerson(Person p);
+	public void removePerson(Person p) throws DAOException;
 	
 	/**
 	 * Suppression de toutes les personnes de la base.
@@ -83,6 +85,7 @@ public interface IPersonDAO {
 	 * Calcul le nombre de personnes de la base.
 	 * 
 	 * @return Le nombre de personnes.
+	 * @throws DAOException Si la connexion échoue.
 	 */
-	public int countPersons();
+	public int countPersons() throws DAOException;
 }
