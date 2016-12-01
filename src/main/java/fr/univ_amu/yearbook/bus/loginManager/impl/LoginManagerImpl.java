@@ -13,6 +13,7 @@ import fr.univ_amu.yearbook.bus.exception.ManagerException;
 import fr.univ_amu.yearbook.bus.loginManager.ILoginManager;
 import fr.univ_amu.yearbook.dao.IDatabaseManager;
 import fr.univ_amu.yearbook.dao.IResultSetToBean;
+import fr.univ_amu.yearbook.dao.exception.DAOException;
 import fr.univ_amu.yearbook.dao.exception.DatabaseManagerException;
 import fr.univ_amu.yearbook.dao.impl.ResultSetToBeanImpl;
 
@@ -72,7 +73,7 @@ public class LoginManagerImpl implements ILoginManager {
 			if (rs.next())
 				return mapper.toBean(rs);
 			return null;
-		} catch (SQLException | DatabaseManagerException e){
+		} catch (SQLException | DatabaseManagerException | DAOException e){
 			throw new ManagerException(e.getCause());
 		}
 	}
