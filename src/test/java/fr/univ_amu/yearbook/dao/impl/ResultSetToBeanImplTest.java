@@ -20,6 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.univ_amu.yearbook.bean.Group;
+import fr.univ_amu.yearbook.dao.exception.DAOException;
 import fr.univ_amu.yearbook.dao.exception.DatabaseManagerException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -51,7 +52,7 @@ public class ResultSetToBeanImplTest {
 	}
 
 	@Test
-	public void testToBean() throws DatabaseManagerException, SQLException {
+	public void testToBean() throws DatabaseManagerException, SQLException, DAOException {
 		PreparedStatement pstm = conn.prepareStatement("INSERT INTO YEARBOOK_Group values(?,?)",Statement.RETURN_GENERATED_KEYS);
 		pstm.setObject(1, null);
 		Timestamp timestamp =  new Timestamp(System.currentTimeMillis());
