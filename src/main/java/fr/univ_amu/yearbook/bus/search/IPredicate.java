@@ -3,7 +3,9 @@ package fr.univ_amu.yearbook.bus.search;
 /**
  * The IPredicate interface defines criterion which object must sastisfy.
  * 
- * @author ZONGO
+ * @author Aboubacar Sidy DIALLO
+ * @author Inoussa ZONGO
+ * 
  * @version 1.0
  *
  * @param <T> parameter type on which the interface operations should be applied.

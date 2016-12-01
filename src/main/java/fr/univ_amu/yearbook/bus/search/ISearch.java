@@ -5,7 +5,9 @@ import java.util.Collection;
 /**
  * The ISearch interface provides an operation to filter a collection of objects on {@link fr.univ_amu.yearbook.bus.search.IPredicate criteria}.
  * 
- * @author ZONGO
+ * @author Aboubacar Sidy DIALLO
+ * @author Inoussa ZONGO
+ * 
  * @version 1.0
  *
  * @param <T> parameter type on which the interface operations should be applied.

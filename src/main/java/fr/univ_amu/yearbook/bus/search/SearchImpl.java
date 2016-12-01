@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 /**
  * The SearchImpl class is an implementation of  the interface {@link fr.univ_amu.yearbook.bus.search.ISearch ISearch}.
  * 
- * @author ZONGO
+ * @author Aboubacar Sidy DIALLO
+ * @author Inoussa ZONGO
+ * 
  * @version 1.0
  *
  * @param <T> parameter type on which the interface operations should be applied.
