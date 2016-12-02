@@ -171,7 +171,7 @@ public class PersonDAOImpl implements IPersonDAO {
 		else {
 			String[] columnNameList = {"lastName", "firstName","email", "homePage", "birthDate", "pwd", "idG", "id"};
 			String query = "UPDATE YEARBOOK_Person "
-					+ "SET lastName = UPPER(?), firstName = ?, email = ?, homePage = ?, birthDate = ?, pwd = ?, idG = ? "
+					+ "SET lastName = UPPER(?), firstName = ?, email = ?, homePage = ?, birthDate = ?, pwd = PASSWORD(?), idG = ? "
 					+ "WHERE id = ?";
 			mapper.insertOrUpdate(p, query, columnNameList);
 		}
