@@ -26,7 +26,7 @@ import fr.univ_amu.yearbook.dao.IGroupDAO;
 import fr.univ_amu.yearbook.dao.exception.DAOException;
 
 /**
- * PersonController <br/> est le controller qui gère les
+ * <b>PersonController</b> est le controller qui gère les
  * différentes actions éffectuées par une personne.
  * Ces actions peuvent être : l'authentification, lister les inscrits de l'annuaire,
  * modifier ces coordonnées, supprimer son compte, .....
@@ -58,7 +58,7 @@ public class PersonController {
     private PersonValidator personValidator;
 
 	/**
-	 * Manager d'une personnne
+	 * Manager d'une personnne.
 	 * 
 	 * @see #
 	 */
@@ -85,8 +85,8 @@ public class PersonController {
      * 
      */
 	protected final Log logger = LogFactory.getLog(getClass());
-    
-    /**
+	
+	/**
      * 
      * @return
      * @throws ManagerException
@@ -113,8 +113,8 @@ public class PersonController {
         
         if (person != null)  {
         	pManager.removePerson(person);
-        	model.addAttribute("person", person);
-        	return "formLogin";
+        	model.addAttribute("person", new Person());
+        	return "redirect:../login";
         }
         return "redirect:../list";
     }
@@ -135,8 +135,18 @@ public class PersonController {
         
         if (person != null)  {
         	model.addAttribute("person", person);
-        	return "formPersonRegister";
+        	return "personEdit";
         }
+        return "redirect:../list";
+    }
+    
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String editPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {	
+    	personValidator.validate(p, result);
+        if (result.hasErrors()) {
+            return "personEdit";
+        }
+        pManager.saveOrUpdatePerson(p);
         return "redirect:../list";
     }
     
@@ -159,12 +169,11 @@ public class PersonController {
      */
     @RequestMapping(value = "/forgotPwd", method = RequestMethod.POST)
     public String reminderUser(@ModelAttribute Person p, BindingResult result) throws ManagerException {
-    	loginValidator.validate(p, result);
-    	if (result.hasErrors()) {
-            return "formForgotPwdUser";
-        }
-    	if (pManager.findPerson(p.getEmail()) != null)
-    		return "redirect:login";
+    	if (p != null) {
+    		p = pManager.findPerson(p.getEmail());
+    		if (p != null)
+    			return "redirect:login";
+    	}
     	return "formForgotPwdUser";
     }
     
@@ -224,14 +233,16 @@ public class PersonController {
      * @param p
      * @param result
      * @return
+     * @throws ManagerException 
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerPerson(@ModelAttribute @Valid Person p, BindingResult result) {
+    public String registerPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {
     	personValidator.validate(p, result);
         if (result.hasErrors()) {
             return "formPersonRegister";
         }
-        return "formPersonRegister";
+        pManager.saveOrUpdatePerson(p);
+        return "redirect:login";
     }
     
     /**
