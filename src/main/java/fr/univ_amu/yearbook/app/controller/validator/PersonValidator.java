@@ -1,7 +1,5 @@
 package fr.univ_amu.yearbook.app.controller.validator;
 
-import java.util.Calendar;
-
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -10,13 +8,12 @@ import org.springframework.validation.Validator;
 import fr.univ_amu.yearbook.bean.Person;
 
 /**
- * <b>PersonValidator<b/> gère la validation des données rentrées par
+ * PersonValidator gère la validation des données rentrées par
  * un utilisateur lors de son inscription.
  * 
  * Cette classe comprend :
  * <ul>
- * <li>Une expression régulière sur l'email.</li>
- * <li>Une expression régulière sur le mot de passe.</li>
+ * <li>Une expression régulière sur le site web.</li>
  * </ul>
  * 
  * @author Aboubacar Sidy DIALLO
@@ -32,15 +29,8 @@ public class PersonValidator implements Validator {
 	 * 
 	 * @see #validate(Object, Errors)
 	 */
-	private final String EMAIL_PATTERN = "^[a-z][\\.\\w]*@[a-z]+[a-z\\.-]+[a-z]+\\.[a-z]{2,4}$";
+	private final String HOMEPAGE_PATTERN = "[w]{3}\\.[a-z\\._-]+\\.[a-z]{2,4}$";
 	
-	/**
-	 * Le format du mot de passe doit appartenir au parttern.
-	 * 
-	 * @see #validate(Object, Errors)
-	 */
-	private final String PWD_PATTERN = "[a-z1-9]+";
-
 	/**
 	 * @param clazz Le type entré en paramètre.
 	 * @return True si le type correspond au type Person et false sinon.
@@ -63,27 +53,21 @@ public class PersonValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName",
-                "person.lastName");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "person.lastName");
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName",
-                "person.firstName");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "person.firstName");
 
-        if (person.getEmail() != null) {
-        	if (!person.getEmail().matches(EMAIL_PATTERN)) {
-                errors.rejectValue("email", "person.email");
-            }
-        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "person.email");
         
-        if (person.getBirthDate() != null) {
-        	if (person.getBirthDate().after(Calendar.getInstance().getTime())) {
-        		errors.rejectValue("birthDate", "person.birthDate");
-        	}
-        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "birthDate", "person.birthDate");
         
-        if (person.getPwd() != null) {
-            if (!person.getPwd().matches(PWD_PATTERN)) {
-                errors.rejectValue("pwd", "person.pwd");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "person.pwd");
+        
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "idG", "person.idG");
+        
+        if (person.getHomePage() != null) {
+            if (!person.getPwd().matches(HOMEPAGE_PATTERN)) {
+                errors.rejectValue("homePage", "person.homePage");
             }
         }
     }
