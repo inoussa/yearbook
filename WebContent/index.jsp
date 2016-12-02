@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp_files/jstlPrefix.jsp" %>
+<%@ include file="/WEB-INF/jsp/jstlPrefix.jsp" %>
 
 <%-- rediriger vers le login --%>
 <c:redirect url="/login.htm"/>
