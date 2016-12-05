@@ -241,6 +241,38 @@ public class PersonDAOImpl implements IPersonDAO {
 	public int countPersons() throws DAOException {
 		return findAllPersons().size();
 	}
+	
+	/**
+	 * Renvoie la personne associée à l'email et au mot de passe.
+	 * 
+	 * @param email L'email de connexion.
+	 * @param pwd Le mot de passe.
+	 * @return La personne associée à l'email et au mot de passe ou NULL.
+	 * @throws DAOException Si une exception est levée.
+	 */
+	@Override
+	public Person personAssociedLoginPwd(String email, String pwd) throws DAOException {
+		
+		try (Connection conn = dbManager.newConnection()) {
+			IResultSetToBean<Person> mapper = new ResultSetToBeanImpl<Person>(Person.class);
+			
+			String query = "SELECT * "
+					+ "FROM YEARBOOK_Person "
+					+ "WHERE email = ? AND pwd = PASSWORD(?)";			
+			PreparedStatement st = conn.prepareStatement(query);
+			
+			st.setString(1, email);
+			st.setString(2, pwd);
+			
+			ResultSet rs = st.executeQuery();
+			
+			if (rs.next())
+				return mapper.toBean(rs);
+			return null;
+		} catch (SQLException | DatabaseManagerException e){
+			throw new DAOException(e.getCause());
+		}
+	}
 
 	/**
 	 * Retourne une instance de IDataBaseManager.
