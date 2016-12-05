@@ -13,8 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.univ_amu.yearbook.bean.Person;
 import fr.univ_amu.yearbook.bus.exception.ManagerException;
-import fr.univ_amu.yearbook.dao.IPersonDAO;
-import fr.univ_amu.yearbook.dao.exception.DAOException;
+import fr.univ_amu.yearbook.bus.personManager.IPersonManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring_test.xml"})
@@ -24,10 +23,10 @@ public class LoginManagerImplTest {
 	ILoginManager loginManager;
 	
 	@Autowired
-	IPersonDAO personDao;
+	IPersonManager personManager;
 	
 	@Test
-	public void testPersonAssociedLoginPwd() throws ManagerException, DAOException {
+	public void testPersonAssociedLoginPwd() throws ManagerException {
 		Person p = new Person();
 		
 		p.setLastName("JOBS");
@@ -37,7 +36,7 @@ public class LoginManagerImplTest {
 		p.setBirthDate(Date.valueOf("2016-01-01"));
 		p.setPwd("steve");
 		p.setIdG((long) 2);
-		personDao.saveOrUpdatePerson(p);
+		personManager.saveOrUpdatePerson(p);
 		
 		String email = "steve.jobs@localhost.fr";
 		String pwd = "steve";
@@ -55,7 +54,6 @@ public class LoginManagerImplTest {
 		assertNull(p1);
 		assertFalse(p1 instanceof Person);
 		
-		personDao.removePerson(p);
+		personManager.removePerson(p);
 	}
-
 }
