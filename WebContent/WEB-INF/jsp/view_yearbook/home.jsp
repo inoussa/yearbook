@@ -1,7 +1,5 @@
 <%@ include file="/WEB-INF/jsp/jstlPrefix.jsp" %>
 
-<c:url var="showPerson" value="/actions/person/show" />
-
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java"
 	contentType="text/html; charset=UTF-8"
@@ -11,7 +9,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/yearbook.css" />" />
-		<title>List Person</title>
+		<title>Home</title>
 	</head>
 
 	<body>
@@ -19,19 +17,9 @@
 		<jsp:include page="../view_fragments/navigation.jsp" />
 		
 		<div id="body_">
-			<h2>Liste des personnes de l'annuaire.</h2>
-		    <table>
-			    <c:forEach items="${people}" var="person">
-			        <tr>
-				        <td>
-				        	<a href="${showPerson}/${person.id}">
-				        		<c:out value="${person.firstName}"/> 
-				        		<b><c:out value="${person.lastName}" /></b>
-				            </a>
-				        </td>
-			        </tr>
-			    </c:forEach>
-		    </table>
+			<h2>Acceuil.</h2>
+		    <p>Ce travail consiste à réaliser une application de g
+		    </p>
 		</div>
 		
 		<jsp:include page="../view_fragments/footer.jsp" />

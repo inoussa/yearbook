@@ -29,7 +29,7 @@ public class PersonValidator implements Validator {
 	 * 
 	 * @see #validate(Object, Errors)
 	 */
-	private final String HOMEPAGE_PATTERN = "[w]{3}\\.[a-z\\._-]+\\.[a-z]{2,4}$";
+	private final String HOMEPAGE_PATTERN = "[w]{3}\\.[a-z\\._-]+\\.[a-z\\.~/_-]{2,}$";
 	
 	/**
 	 * @param clazz Le type entré en paramètre.
@@ -66,7 +66,7 @@ public class PersonValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "idG", "person.idG");
         
         if (person.getHomePage() != null) {
-            if (!person.getPwd().matches(HOMEPAGE_PATTERN)) {
+            if (!person.getHomePage().matches(HOMEPAGE_PATTERN)) {
                 errors.rejectValue("homePage", "person.homePage");
             }
         }

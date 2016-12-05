@@ -90,6 +90,18 @@ public class PersonController {
      * 
      * @return
      * @throws ManagerException
+	 * @throws DAOException 
+     */
+    @ModelAttribute("allGroups")
+    Collection<Group> listGroupsMaking() throws DAOException {
+        logger.info("Making list of persons");
+        return gManager.find();
+    }
+    
+    /**
+     * 
+     * @return
+     * @throws ManagerException
      */
     @ModelAttribute("people")
     Collection<Person> listPersonsMaking() throws ManagerException {
@@ -135,7 +147,7 @@ public class PersonController {
         
         if (person != null)  {
         	model.addAttribute("person", person);
-        	return "personEdit";
+        	return "formPersonRegister";
         }
         return "redirect:../list";
     }
@@ -144,7 +156,7 @@ public class PersonController {
     public String editPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {	
     	personValidator.validate(p, result);
         if (result.hasErrors()) {
-            return "personEdit";
+            return "formPersonRegister";
         }
         pManager.saveOrUpdatePerson(p);
         return "redirect:../list";
@@ -234,9 +246,11 @@ public class PersonController {
      * @param result
      * @return
      * @throws ManagerException 
+     * @throws DAOException 
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {
+    public String registerPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException, DAOException {
+    	
     	personValidator.validate(p, result);
         if (result.hasErrors()) {
             return "formPersonRegister";

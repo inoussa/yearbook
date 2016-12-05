@@ -59,19 +59,28 @@
 				    </tr>
 				    
 				    <tr>
-					    <td>Groupe : </td>
+					    <td>Groupe : </td>   
 					    <td>
-					        <form:select path="" multiple="false">
-					            <form:option value="" label="----- Select -----" />
-					            <form:options items="${allGroups}" />
+					         <form:select path="idG" multiple="false">
+					            <form:option value="" label="Choisir un groupe" />
+					            <form:options items="${allGroups}" itemValue="id" itemLabel="name"/>
 					        </form:select>
 					    </td>
 					</tr>
 				    
-				    <tr>
-				        <td><input type="submit" value="Envoyer"/></td>
-				    </tr>
-			    </table>
+				    <c:choose>
+					    <c:when test="${person.id == null}">
+					        <tr>
+				        		<td><input type="submit" value="Envoyer"/></td>
+				    		</tr>
+					    </c:when>    
+					    <c:otherwise>
+					        <tr>
+				        		<td><input type="submit" value="Modifier"/></td>
+				    		</tr>
+					    </c:otherwise>
+					</c:choose>
+				</table>
 			</form:form>
 		</div>
 		

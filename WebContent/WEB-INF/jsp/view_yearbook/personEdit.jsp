@@ -62,9 +62,9 @@
 				    <tr>
 					    <td>Groupe : </td>
 					    <td>
-					        <form:select path="" multiple="false">
-					            <form:option value="" label="----- Select -----" />
-					            <form:options items="${allGroups}" />
+					         <form:select path="idG" multiple="false">
+					            <form:option value="" label="Choisir un groupe" />
+					            <form:options items="${allGroups}" itemValue="id" itemLabel="name"/>
 					        </form:select>
 					    </td>
 					</tr>
