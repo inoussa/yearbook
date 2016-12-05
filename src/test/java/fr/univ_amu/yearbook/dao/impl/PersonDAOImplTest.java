@@ -165,4 +165,36 @@ public class PersonDAOImplTest {
 		
 		assertEquals(8, countP);
 	}
+	
+	@Test
+	public void testPersonAssociedLoginPwd() throws DAOException {
+		Person p = new Person();
+		
+		p.setLastName("JOBS");
+		p.setFirstName("Steve");
+		p.setEmail("steve.jobs@localhost.fr");
+		p.setHomePage("www.steve_jobs.fr");
+		p.setBirthDate(Date.valueOf("2016-01-01"));
+		p.setPwd("steve");
+		p.setIdG((long) 2);
+		personDao.saveOrUpdatePerson(p);
+		
+		String email = "steve.jobs@localhost.fr";
+		String pwd = "steve";
+		
+		Person p1 = personDao.personAssociedLoginPwd(email, pwd);
+		
+		assertNotNull(p1);
+		assertTrue("true", p1 instanceof Person);
+		
+		p1 = personDao.personAssociedLoginPwd(email, "ceci n'est pas un mdp valide");
+		assertNull(p1);
+		assertFalse(p1 instanceof Person);
+		
+		p1 = personDao.personAssociedLoginPwd("pas.valide@localhost.fr", "ceci n'est pas un mdp valide");
+		assertNull(p1);
+		assertFalse(p1 instanceof Person);
+		
+		personDao.removePerson(p);
+	}
 }
