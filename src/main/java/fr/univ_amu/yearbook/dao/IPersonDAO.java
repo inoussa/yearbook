@@ -88,4 +88,14 @@ public interface IPersonDAO {
 	 * @throws DAOException Si la connexion échoue.
 	 */
 	public int countPersons() throws DAOException;
+
+	/**
+	 * Renvoie la personne associée à l'email et au mot de passe.
+	 * 
+	 * @param email L'email de connexion.
+	 * @param pwd Le mot de passe.
+	 * @return La personne associée à l'email et au mot de passe ou NULL.
+	 * @throws DAOException Si une exception est levée.
+	 */
+	public Person personAssociedLoginPwd(String email, String pwd) throws DAOException;
 }
