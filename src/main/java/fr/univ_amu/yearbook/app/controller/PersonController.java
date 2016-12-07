@@ -20,9 +20,9 @@ import fr.univ_amu.yearbook.app.controller.validator.PersonValidator;
 import fr.univ_amu.yearbook.bean.Group;
 import fr.univ_amu.yearbook.bean.Person;
 import fr.univ_amu.yearbook.bus.exception.ManagerException;
+import fr.univ_amu.yearbook.bus.groupManager.IGroupManager;
 import fr.univ_amu.yearbook.bus.loginManager.ILoginManager;
 import fr.univ_amu.yearbook.bus.personManager.IPersonManager;
-import fr.univ_amu.yearbook.dao.IGroupDAO;
 import fr.univ_amu.yearbook.dao.exception.DAOException;
 
 /**
@@ -71,7 +71,7 @@ public class PersonController {
 	 * @see #
 	 */
     @Autowired
-    private IGroupDAO gManager;
+    private IGroupManager gManager;
     
     /**
      * Manager de l'authentification d'un utilisateur.
@@ -180,7 +180,7 @@ public class PersonController {
      * @throws ManagerException
      */
     @RequestMapping(value = "/forgotPwd", method = RequestMethod.POST)
-    public String reminderUser(@ModelAttribute Person p, BindingResult result) throws ManagerException {
+    public String reminderUser(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {
     	if (p != null) {
     		p = pManager.findPerson(p.getEmail());
     		if (p != null)
@@ -236,7 +236,7 @@ public class PersonController {
      * @return
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerPerson(@ModelAttribute @Valid Person p) {
+    public String registerPerson(@ModelAttribute Person p) {
         return "formPersonRegister";
     }
     

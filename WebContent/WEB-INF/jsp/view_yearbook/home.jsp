@@ -18,7 +18,8 @@
 		
 		<div id="body_">
 			<h2>Acceuil.</h2>
-		    <p>Ce travail consiste à réaliser une application de g
+		    <p>Ce travail consiste à réaliser une application de gestion d'un annuaire de personnes.<br/>
+		    Le travail sera fait en utilisant la technologie JEE.<br/>Il est à réaliser en groupe de 2.<br/>
 		    </p>
 		</div>
 		
