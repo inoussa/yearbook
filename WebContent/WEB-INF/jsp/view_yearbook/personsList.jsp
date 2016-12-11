@@ -1,6 +1,8 @@
 <%@ include file="/WEB-INF/jsp/jstlPrefix.jsp" %>
 
+<c:url var="editRegister" value="/actions/person/register" />
 <c:url var="showPerson" value="/actions/person/show" />
+
 
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java"
@@ -19,19 +21,29 @@
 		<jsp:include page="../view_fragments/navigation.jsp" />
 		
 		<div id="body_">
-			<h2>Liste des personnes de l'annuaire.</h2>
-		    <table>
-			    <c:forEach items="${people}" var="person">
-			        <tr>
-				        <td>
-				        	<a href="${showPerson}/${person.id}">
-				        		<c:out value="${person.firstName}"/> 
-				        		<b><c:out value="${person.lastName}" /></b>
-				            </a>
-				        </td>
-			        </tr>
-			    </c:forEach>
-		    </table>
+			<c:choose>
+				<c:when test="${person.id != null}">
+					<jsp:include page="../view_fragments/disconnect.jsp" />
+					
+					<h2>Liste des personnes de l'annuaire.</h2>
+				    <table>
+					    <c:forEach items="${listPersons}" var="person">
+					        <tr>
+						        <td>
+						        	<a href="${showPerson}/${person.id}">
+						        		<c:out value="${person.firstName}"/> 
+						        		<b><c:out value="${person.lastName}" /></b>
+						            </a>
+						        </td>
+					        </tr>
+					    </c:forEach>
+				    </table>
+				</c:when>
+				
+				<c:otherwise>
+					<jsp:include page="../view_fragments/redirectLogin.jsp" />
+			    </c:otherwise>
+			</c:choose>
 		</div>
 		
 		<jsp:include page="../view_fragments/footer.jsp" />
