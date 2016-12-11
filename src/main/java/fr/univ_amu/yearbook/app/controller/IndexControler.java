@@ -30,15 +30,15 @@ public class IndexControler {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	/**
-	 * Fait la redirection à partir de la page d'acceuil vers la page
-	 * de login et mot de passe de l'applciation.
+	 * Fait la redirection vers la page de login et mot de passe de l'applciation si aucune
+	 * session n'est en cours ou, fait la redirection vers la liste des personnes de l'annuaire sinon.
 	 * 
 	 * @param p Une personne.
 	 * @return La redirection vers le login.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String login(@ModelAttribute Person p) {
-    	logger.info("Login");
-        return "redirect:/actions/person/login";
+		logger.info("Login");
+    	return "redirect:/actions/person/login";
     }
 }
