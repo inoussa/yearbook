@@ -41,12 +41,12 @@ public class LoginValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
         
-        if (person.getEmail() != null) {
-        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "person.email");
-        }
-        
-        if (person.getPwd() != null) {
-        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "person.pwd");
-        }
+        if (person.getEmail() != null || person.getEmail().length() < 6) {
+    		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "person.email");
+    	}
+    
+    	if (person.getPwd() == null || person.getPwd().length() < 6) {
+    		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "person.pwd");
+    	}
     }
 }
