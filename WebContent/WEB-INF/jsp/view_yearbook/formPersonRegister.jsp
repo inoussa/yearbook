@@ -1,6 +1,9 @@
 <%@ include file="/WEB-INF/jsp/jstlPrefix.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<c:url var="redirectDisconnect" value="/actions/person/disconnect" />
+<c:url var="redirectList" value="/actions/person/list" />
+
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java"
 	contentType="text/html; charset=UTF-8"
@@ -17,71 +20,67 @@
 		<jsp:include page="../view_fragments/header.jsp" />
 		
 		<div id="body_">
-			<h3>Inscription dans l'annuaire.</h3>
+			<c:choose>
+				<c:when test="${person.id == null}">
+					<h3>Inscription dans l'annuaire.</h3>
+					
+					<form:form method="POST" commandName="person">
+						<table>
+							<tr>
+						    	<td>Nom : </td>
+						        <td><form:input path="lastName"/></td>
+						    </tr>
+						    
+						    <tr>
+						    	<td>Prénom : </td>
+						        <td><form:input path="firstName"/></td>
+						    </tr>
+						    
+						    <tr>
+						        <td>Date de naissance : </td>
+						        <td><form:input path="birthDate" type="date" /></td>
+						    </tr>
+						    
+						    <tr>
+						        <td>Page web : </td>
+						        <td><form:input path="homePage" type="url" /></td>
+						    </tr>
+						    
+						    <tr>
+						        <td>Email : </td>
+						        <td><form:input path="email" /></td>
+						    </tr>
 			
-			<form:form method="POST" commandName="person">
-				<form:errors path="*" cssClass="errorblock" element="div"/>
-				<table>
-					<tr>
-				    	<td>Nom : </td>
-				        <td><form:input path="lastName"/></td>
-				        <td><form:errors path="lastName" cssClass="error" /></td>
-				    </tr>
-				    
-				    <tr>
-				    	<td>Prénom : </td>
-				        <td><form:input path="firstName"/></td>
-				        <td><form:errors path="firstName" cssClass="error" /></td>
-				    </tr>
-				    
-				    <tr>
-				        <td>Date de naissance : </td>
-				        <td><form:input path="birthDate" type="date" /></td>
-				        <td><form:errors path="birthDate" cssClass="error" /></td>
-				    </tr>
-				    
-				    <tr>
-				        <td>Page web : </td>
-				        <td><form:input path="homePage" type="url" /></td>
-				        <td><form:errors path="homePage" cssClass="error" /></td>
-				    </tr>
-				    
-				    <tr>
-				        <td>Email : </td>
-				        <td><form:input path="email" /></td>
-				        <td><form:errors path="email" cssClass="error" /></td>
-				    </tr>
-	
-				    <tr>
-				        <td>Mot de passe : </td>
-				        <td><form:input path="pwd" type="password"/></td>
-				        <td><form:errors path="pwd" cssClass="error" /></td>
-				    </tr>
-				    
-				    <tr>
-					    <td>Groupe : </td>   
-					    <td>
-					         <form:select path="idG" multiple="false">
-					            <form:option value="" label="Choisir un groupe" />
-					            <form:options items="${allGroups}" itemValue="id" itemLabel="name"/>
-					        </form:select>
-					    </td>
-					</tr>
-				    
-				    <c:choose>
-					    <c:when test="${person.id == null}">
-					        <tr>
+						    <tr>
+						        <td>Mot de passe : </td>
+						        <td><form:input path="pwd" type="password"/></td>
+						    </tr>
+						    
+						    <tr>
+							    <td>Groupe : </td>   
+							    <td>
+							         <form:select path="idG" multiple="false">
+							            <form:option value="" label="Choisir un groupe" />
+							            <form:options items="${listGroups}" itemValue="id" itemLabel="name"/>
+							        </form:select>
+							    </td>
+							</tr>
+						    
+				            <tr>
 				        		<td><input type="submit" value="Envoyer"/></td>
 				    		</tr>
-					    </c:when>    
-					    <c:otherwise>
-					        <tr>
-				        		<td><input type="submit" value="Modifier"/></td>
-				    		</tr>
-					    </c:otherwise>
-					</c:choose>
-				</table>
-			</form:form>
+						</table>
+					</form:form>
+				</c:when>
+				
+				<c:otherwise>
+					<p>
+						Vous êtes déjà connecté.<br/>
+						Pour accéder à cette page, déconnectez-vous en cliquant <a href="${redirectDisconnect}">ici.</a><br/>
+						Pour retourner à l'acceuil, cliquer <a href="${redirectList}">ici.</a>
+					</p>
+			    </c:otherwise>
+			</c:choose>
 		</div>
 		
 		<jsp:include page="../view_fragments/footer.jsp" />
