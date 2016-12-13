@@ -1,6 +1,10 @@
 <%@ include file="/WEB-INF/jsp/jstlPrefix.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<c:url var="redirectDisconnect" value="/actions/person/disconnect" />
+<c:url var="redirectList" value="/actions/person/list" />
+<c:url var="redirectLogin" value="/actions/person/login" />
+
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java"
 	contentType="text/html; charset=UTF-8"
@@ -14,24 +18,34 @@
 	</head>
 	<body>
 		<div id="body_">
-			<h3>Entrez votre email.</h3>
+			<c:choose>
+				<c:when test="${person.id == null}">
+					<h3>Entrez votre email.</h3>
+					
+					<form:form method="POST" commandName="person">
+						<form:errors path="*" cssClass="errorblock" element="div"/>
+						<table>
+							<tr>
+						    	<td>Email : </td>
+						        <td><form:input path="email" /></td>
+						    </tr>
 			
-			<form:form method="POST" commandName="person">
-				<form:errors path="*" cssClass="errorblock" element="div"/>
-				<table>
-					<c:if test="${person == null}">
-				   		<p>Login incorrect.</p>
-					</c:if>
-					<tr>
-				    	<td>Email : </td>
-				        <td><form:input path="email" /></td>
-				    </tr>
-	
-					<tr>
-				        <td><input type="submit" value="Envoyer"/></td>
-				    </tr>
-			    </table>
-			</form:form>
+							<tr>
+						        <td><input type="submit" value="Envoyer"/></td>
+						    </tr>
+					    </table>
+					    <p class="lien_acceuil"><a href="${redirectLogin}">Acceuil.</a></p>
+					</form:form>
+				</c:when>
+				
+				<c:otherwise>
+					<p>
+						Vous êtes déjà connecté.<br/>
+						Pour accéder à cette page, déconnectez-vous en cliquant <a href="${redirectDisconnect}">ici.</a><br/>
+						Pour retourner à l'acceuil, cliquer <a href="${redirectList}">ici.</a>
+					</p>
+			    </c:otherwise>
+			</c:choose>
 		</div>	
 	</body>
 </html>
