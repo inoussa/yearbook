@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import fr.univ_amu.yearbook.app.controller.validator.LoginValidator;
+import fr.univ_amu.yearbook.app.controller.validator.PasswordRecoverValidator;
 import fr.univ_amu.yearbook.app.controller.validator.PersonValidator;
 import fr.univ_amu.yearbook.bean.Group;
 import fr.univ_amu.yearbook.bean.Person;
 import fr.univ_amu.yearbook.bus.exception.ManagerException;
 import fr.univ_amu.yearbook.bus.groupManager.IGroupManager;
 import fr.univ_amu.yearbook.bus.loginManager.ILoginManager;
+import fr.univ_amu.yearbook.bus.passwordRecover.IPasswordRecoverManager;
 import fr.univ_amu.yearbook.bus.personManager.IPersonManager;
-import fr.univ_amu.yearbook.dao.exception.DAOException;
 
 /**
  * <b>PersonController</b> est le controller qui gère les
@@ -39,218 +40,140 @@ import fr.univ_amu.yearbook.dao.exception.DAOException;
 @Controller
 @RequestMapping("/person")
 public class PersonController {
-
-	/**
-	 * Validateur du login.
-	 * 
-	 * @see #login(Person)
-	 * @see #reminderUser(Person)
-	 */
+	
+	@Autowired
+	Person person;
+	
+	@Autowired
+    private IPersonManager pManager;
+	
+	@Autowired
+    private IGroupManager gManager;
+	
+	@Autowired
+    private ILoginManager lManager;
+	
 	@Autowired
     private LoginValidator loginValidator;
 	
-	/**
-	 * Validateur des données d'inscriptions d'une personne.
-	 * 
-	 * @see #registerPerson(Person)
-	 */
 	@Autowired
     private PersonValidator personValidator;
-
-	/**
-	 * Manager d'une personnne.
-	 * 
-	 * @see #
-	 */
-    @Autowired
-    private IPersonManager pManager;
+	
+	@Autowired
+	private PasswordRecoverValidator pwdValidator;
+	
+	@Autowired
+	private IPasswordRecoverManager pRecover;
     
-    /**
-	 * Manager d'un groupe (Type à changer après maj github)
-	 * 
-	 * @see #
-	 */
-    @Autowired
-    private IGroupManager gManager;
-    
-    /**
-     * Manager de l'authentification d'un utilisateur.
-     * 
-     * @see #
-     */
-    @Autowired
-    private ILoginManager logManager;
-    
-    /**
-     * 
-     */
 	protected final Log logger = LogFactory.getLog(getClass());
 	
-	/**
-     * 
-     * @return
-     * @throws ManagerException
-	 * @throws DAOException 
-     */
-    @ModelAttribute("allGroups")
-    Collection<Group> listGroupsMaking() throws DAOException {
-        logger.info("Making list of persons");
+	@ModelAttribute("person")
+    public Person newPerson() {
+		logger.info("La personne qui sera chargée en session");
+        return person;
+    }
+	
+	@ModelAttribute("listGroups")
+    public Collection<Group> listGroupsMaking() {
+		logger.info("La liste de tous les groupes de la bdd");
         return gManager.find();
     }
-    
-    /**
-     * 
-     * @return
-     * @throws ManagerException
-     */
-    @ModelAttribute("people")
+	
+	@ModelAttribute("listPersons")
     Collection<Person> listPersonsMaking() throws ManagerException {
-        logger.info("Making list of persons");
+        logger.info("La liste de toutes les personnes de la bdd");
         return pManager.findAllPersons();
     }
-    
-    /**
-     * 
-     * @param id
-     * @param model
-     * @return
-     * @throws ManagerException
-     */
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deletePerson(@PathVariable("id") Long id, Model model) throws ManagerException {
-        
-    	logger.info("Running id controller with id =" + id);
-        
-        Person person = pManager.findPerson(id);
-        
-        if (person != null)  {
-        	pManager.removePerson(person);
-        	model.addAttribute("person", new Person());
-        	return "redirect:../login";
-        }
-        return "redirect:../list";
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deletePerson(@PathVariable("id") Long id) throws ManagerException {
+    	logger.info("L'id de la personne qui serra supprimer est : " + id);
+    	
+    	if (person.getId() == null)
+    		return "redirect:../list";
+    	
+        person = pManager.findPerson(id);
+        pManager.removePerson(person);
+        return "redirect:../disconnect";
     }
-    
-    /**
-     * 
-     * @param id
-     * @param model
-     * @return
-     * @throws ManagerException
-     */
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editPerson(@PathVariable("id") Long id, Model model) throws ManagerException {
-        
-    	logger.info("Running id controller with id =" + id);
-        
-        Person person = pManager.findPerson(id);
-        
-        if (person != null)  {
-        	model.addAttribute("person", person);
-        	return "formPersonRegister";
-        }
-        return "redirect:../list";
+	
+	@RequestMapping(value = "/disconnect", method = RequestMethod.GET)
+    public String disconnect() {
+        logger.info("Déconnexion.");
+        person = new Person();
+        return "redirect:login";
+    }
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editPerson(@PathVariable("id") Long id) throws ManagerException {
+    	logger.info("Envoyer la personne ayant pour id =" + id);
+    	
+    	if (person.getId() != null)
+    		person = pManager.findPerson(id);
+        return "personEdit";
     }
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String editPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {	
-    	personValidator.validate(p, result);
-        if (result.hasErrors()) {
-            return "formPersonRegister";
-        }
-        pManager.saveOrUpdatePerson(p);
+    public String editPerson(@ModelAttribute @Valid Person person, BindingResult result) throws ManagerException {	
+    	personValidator.validate(person, result);
+        if (result.hasErrors())
+            return "personEdit";
+        
+        pManager.saveOrUpdatePerson(person);
         return "redirect:../list";
     }
     
-    /**
-     * 
-     * @param p
-     * @return
-     */
     @RequestMapping(value = "/forgotPwd", method = RequestMethod.GET)
-    public String reminderUser(@ModelAttribute Person p) {
-         return "formForgotPwdUser";
+    public String reminderUser() {
+    	logger.info("Envoi d'un nouveau mot de passe.");
+        return "formForgotPwdUser";
     }
     
-    /**
-     * 
-     * @param p
-     * @param result
-     * @return
-     * @throws ManagerException
-     */
     @RequestMapping(value = "/forgotPwd", method = RequestMethod.POST)
     public String reminderUser(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {
-    	if (p != null) {
-    		p = pManager.findPerson(p.getEmail());
-    		if (p != null)
-    			return "redirect:login";
-    	}
-    	return "formForgotPwdUser";
+    	pwdValidator.validate(p, result);
+        if (result.hasErrors())
+            return "formForgotPwdUser";
+
+    	boolean sendNewPwd = pRecover.sendNewPwd(p.getEmail());
+		if (sendNewPwd) {
+			return "redirect:login";
+		}
+    	return "redirect:forgotPwd";
     }
-    
-    /**
-     * 
-     * @return
-     */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listPersons() {
-        logger.info("List of persons");
+        logger.info("Retourne la page contenant la liste de toutes les personnes de la bdd");
         return "personsList";
     }
-    
-    /**
-	 * 
-	 * @param p
-	 * @return
-	 */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(@ModelAttribute Person p) {
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
     	logger.info("Login");
         return "formLogin";
     }
     
-    /**
-     * 
-     * @param p
-     * @param result
-     * @return
-     * @throws ManagerException
-     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {
     	loginValidator.validate(p, result);
-        if (result.hasErrors()) {
+    	if (result.hasErrors())
             return "formLogin";
-        }
         
-        Person person = logManager.personAssociedLoginPwd(p.getEmail(), p.getPwd());
+        person = lManager.personAssociedLoginPwd(p.getEmail(), p.getPwd());
         if (person instanceof Person)
         	return "redirect:list";
+        person = new Person();
         return "formLogin";
     }
     
-    /**
-     * 
-     * @param p
-     * @return
-     */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerPerson(@ModelAttribute Person p) {
+    public String registerPerson() {
         return "formPersonRegister";
     }
     
-    /**
-     * 
-     * @param p
-     * @param result
-     * @return
-     * @throws ManagerException 
-     * @throws DAOException 
-     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException, DAOException {
-    	
+    public String registerPerson(@ModelAttribute @Valid Person p, BindingResult result) throws ManagerException {
     	personValidator.validate(p, result);
         if (result.hasErrors()) {
             return "formPersonRegister";
@@ -259,25 +182,13 @@ public class PersonController {
         return "redirect:login";
     }
     
-    /**
-     * 
-     * @param id
-     * @param model
-     * @return
-     * @throws ManagerException
-     * @throws DAOException 
-     */
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
-    public String showPerson(@PathVariable("id") Long id, Model model) throws ManagerException, DAOException {
-        
-    	logger.info("Running id controller with id =" + id);
-        
-        Person person = pManager.findPerson(id);
-        
-        if (person != null)  {
-        	Collection<Group> groups = gManager.find();
-        	model.addAttribute("person", person);
-        	model.addAttribute("groups", groups);
+    public String showPerson(@PathVariable("id") Long id, Model model) throws ManagerException {
+    	logger.info("Retourne la page contenant les informations de la personne dont l'id est : " + id);
+    	Person pShowPerson = pManager.findPerson(id);
+    	
+    	if (pShowPerson != null)  {
+        	model.addAttribute("pShowPerson", pShowPerson);
         	return "personShow";
         }
         return "redirect:../list";
