@@ -138,7 +138,7 @@ public class PersonDAOImpl implements IPersonDAO {
 	public Collection<Person> findAllPersons() throws DAOException {
 		
 		try (Connection conn = dbManager.newConnection()) {
-			String query = "SELECT * FROM YEARBOOK_Person";
+			String query = "SELECT * FROM YEARBOOK_Person ORDER BY lastName";
 			Collection<Person> people = new LinkedList<Person>();
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(query);
