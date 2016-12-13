@@ -27,9 +27,6 @@
 					<form:form method="POST" commandName="person">
 						<form:errors path="*" cssClass="errorblock" element="div"/>
 						<table>
-							<c:if test="${person.id == null && person.email != null && person.pwd != null}">
-						   		<p>Login ou mot de passe incorrect.</p>
-							</c:if>
 							<tr>
 						    	<td>Login : </td>
 						        <td><form:input path="email" /></td>
