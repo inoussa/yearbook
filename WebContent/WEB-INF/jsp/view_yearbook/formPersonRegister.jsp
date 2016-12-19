@@ -25,6 +25,7 @@
 					<h3>Inscription dans l'annuaire.</h3>
 					
 					<form:form method="POST" commandName="person">
+						<form:errors path="*" cssClass="errorblock" element="div"/>
 						<table>
 							<tr>
 						    	<td>Nom : </td>
