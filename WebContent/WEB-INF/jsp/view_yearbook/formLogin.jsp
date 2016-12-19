@@ -40,9 +40,12 @@
 						    <tr>
 						        <td><input type="submit" value="Connexion"/></td>
 						    </tr>
+						    
+						    <tr class="pwd_register">
+						    	<td><a href="${forgotPwd}">Mot de passe oublié</a></td>
+						    	<td><a href="${editRegister}">Inscription</a></td>
+						    </tr>
 					    </table>
-					    <p class="pwd"><a href="${forgotPwd}">Mot de passe oublié.</a></p>
-					    <p class="register">Vous n’avez pas de compte? <a href="${editRegister}">Inscription</a></p>
 					</form:form>
 				</c:when>
 				
