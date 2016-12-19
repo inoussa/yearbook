@@ -18,7 +18,7 @@
 		<div id="body_">
 			<jsp:include page="../view_fragments/disconnect.jsp" />
 			
-			<h3>Liste des personnes de l'annuaire.</h3>
+			<h3>Liste des personnes du groupe.</h3>
 			<p><c:out value="${group.name} - ${people.size()} personnes."/> </p>
 			<c:if test="${people.isEmpty()}">
 				<p>Aucune personne dans ce groupe</p>
