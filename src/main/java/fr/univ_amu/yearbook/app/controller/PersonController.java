@@ -41,12 +41,21 @@ import fr.univ_amu.yearbook.bus.personManager.IPersonManager;
 @RequestMapping("/person")
 public class PersonController {
 	
+	/**
+	 * L'instance qui sera créé lors du chargement de la servlet
+	 */
 	@Autowired
 	Person person;
 	
+	/**
+	 * L'instance qui sera créé lors du chargement de la servlet
+	 */
 	@Autowired
     private IPersonManager pManager;
 	
+	/**
+	 * L'instance qui sera créé lors du chargement de la servlet
+	 */
 	@Autowired
     private IGroupManager gManager;
 	
@@ -64,8 +73,16 @@ public class PersonController {
 	
 	@Autowired
 	private IPasswordRecoverManager pRecover;
+	
+	private boolean pwdSend = false;
     
 	protected final Log logger = LogFactory.getLog(getClass());
+	
+	@ModelAttribute("pwdSend")
+    public boolean pwdSendSuccess() {
+		logger.info("La reccuperation de mot de passe c'est fait avec succès");
+        return pwdSend;
+    }
 	
 	@ModelAttribute("person")
     public Person newPerson() {
@@ -137,6 +154,7 @@ public class PersonController {
 
     	boolean sendNewPwd = pRecover.sendNewPwd(p.getEmail());
 		if (sendNewPwd) {
+			pwdSend = true;
 			return "redirect:login";
 		}
     	return "redirect:forgotPwd";
