@@ -2,7 +2,6 @@ package fr.univ_amu.yearbook.app.controller.validator;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import fr.univ_amu.yearbook.bean.Person;
@@ -18,6 +17,13 @@ import fr.univ_amu.yearbook.bean.Person;
  */
 @Service("loginValidator")
 public class LoginValidator implements Validator {
+	
+	/**
+	 * Le format du mail doit appartenir au parttern.
+	 * 
+	 * @see #validate(Object, Errors)
+	 */
+	private final String EMAIL_PATTERN = "^[a-z][\\.\\w]*@[a-z]+[a-z\\.-]+[a-z]+\\.[a-z]{2,4}$";
 	
 	/**
 	 * @param clazz Le type entré en paramètre.
@@ -41,12 +47,14 @@ public class LoginValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
         
-        if (person.getEmail() != null || person.getEmail().length() < 6) {
-    		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "person.email");
-    	}
+        if (person.getEmail() != null) {
+        	if (!person.getEmail().matches(EMAIL_PATTERN) || person.getEmail().length() > 30) {
+                errors.rejectValue("email", "person.email");
+            }
+        }
     
-    	if (person.getPwd() == null || person.getPwd().length() < 6) {
-    		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "person.pwd");
+        if (person.getPwd() != null && person.getPwd().length() < 6) {
+        	errors.rejectValue("pwd", "person.pwd");
     	}
     }
 }
