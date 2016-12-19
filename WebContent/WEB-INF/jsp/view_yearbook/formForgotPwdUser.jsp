@@ -33,8 +33,11 @@
 							<tr>
 						        <td><input type="submit" value="Envoyer"/></td>
 						    </tr>
+						    
+						    <tr>
+						    	<td><a href="${redirectLogin}">Accueil.</a></td>
+						    </tr>
 					    </table>
-					    <p class="lien_acceuil"><a href="${redirectLogin}">Acceuil.</a></p>
 					</form:form>
 				</c:when>
 				
