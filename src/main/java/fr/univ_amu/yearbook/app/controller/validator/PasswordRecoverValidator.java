@@ -2,7 +2,6 @@ package fr.univ_amu.yearbook.app.controller.validator;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import fr.univ_amu.yearbook.bean.Person;
@@ -48,13 +47,10 @@ public class PasswordRecoverValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Person person = (Person) target;
         
-        if (person.getEmail() == null) {
-    		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "person.email");
+        if (person.getEmail() != null) {
+        	if (!person.getEmail().matches(EMAIL_PATTERN) || person.getEmail().length() > 30) {
+        		errors.rejectValue("email", "person.email");
+        	}
     	}
-        else {
-        	if (!person.getEmail().matches(EMAIL_PATTERN)) {
-                errors.rejectValue("email", "person.email");
-            }
-        }
     }
 }
