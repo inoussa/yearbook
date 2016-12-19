@@ -26,6 +26,7 @@
 					<h3>Modification des données.</h3>
 					
 					<form:form method="POST" commandName="person">
+						<form:errors path="*" cssClass="errorblock" element="div"/>
 						<table>
 							<tr>
 						    	<td>Nom : </td>
@@ -70,7 +71,7 @@
 					        <tr>
 				        		<td><input type="submit" value="Valider"/></td>
 				        		<td>
-									<button class="btnCancel" onclick="location.href='${cancel}'">Annuler</button>
+									<button id="btnCancel" onclick="location.href='${cancel}'">Annuler</button>
 								</td>
 				    		</tr>
 						</table>
