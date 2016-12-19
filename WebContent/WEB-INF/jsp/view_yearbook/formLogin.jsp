@@ -26,6 +26,19 @@
 					
 					<form:form method="POST" commandName="person">
 						<form:errors path="*" cssClass="errorblock" element="div"/>
+						
+						<c:if test="${pwdSend != false && person.pwd == null}">
+							<p id="pwdSend">
+								Un nouveau mot de passe vient de vous être envoyé à l'adresse que vous avez indiqué!
+							</p>
+						</c:if>
+						
+						<c:if test="${person != null && person.email != null}">
+							<p id="logError">
+								Login ou mot de passe incorrect!
+							</p>
+						</c:if>
+						
 						<table>
 							<tr>
 						    	<td>Login : </td>
@@ -41,7 +54,7 @@
 						        <td><input type="submit" value="Connexion"/></td>
 						    </tr>
 						    
-						    <tr class="pwd_register">
+						    <tr id="pwd_register">
 						    	<td><a href="${forgotPwd}">Mot de passe oublié</a></td>
 						    	<td><a href="${editRegister}">Inscription</a></td>
 						    </tr>
