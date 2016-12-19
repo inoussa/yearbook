@@ -55,12 +55,6 @@ public class Person implements Serializable {
 	 * @see #getLastName()
 	 * @see #setLastName(String)
 	 */
-	/*
-	@NotNull
-	@Min(value=2, message="Le nom doit contenir au moins 2 caractères")
-    @Max(value=20, message="Le nom doit contenir au plus 20 caractères")
-	@Pattern(regexp="[A-Z][a-zA-Z]+", message="Le nom doit débuter par une majuscule et contenir que des lettres ou -")
-	*/
 	private String lastName;
 	
 	/**
@@ -69,12 +63,6 @@ public class Person implements Serializable {
 	 * @see #getFirstName()
 	 * @see #setFirstName(String)
 	 */
-	/*
-	@NotNull
-	@Min(value=2, message="Le prénom doit contenir au moins 2 caractères")
-    @Max(value=20, message="Le prénom doit contenir au plus 20 caractères")
-	@Pattern(regexp="[A-Z][A-Za-z-]+", message="Le prénom doit débuter par une majuscule et contenir que des lettres ou -")
-	*/
 	private String firstName;
 	
 	/**
@@ -83,12 +71,6 @@ public class Person implements Serializable {
 	 * @see #getEmail()
 	 * @see #setEmail(String)
 	 */
-	/*
-	@NotNull
-	@Min(value=8, message="L'email doit contenir au moins 8 caractères")
-    @Max(value=20, message="L'email doit contenir au plus 20 caractères")
-	@Pattern(regexp="^[a-z][\\.\\w]*@[a-z]+[a-z\\.-]+[a-z]+\\.[a-z]{2,4}", message="Email valide : test@etu.univ-amu.fr")
-	*/
 	private String email;
 	
 	/**
@@ -97,12 +79,6 @@ public class Person implements Serializable {
 	 * @see #getHomePage()
 	 * @see #setHomePage(String)
 	 */
-	/*
-	@Null
-	@Min(value=8, message="La page web doit contenir au moins 8 caractères")
-    @Max(value=20, message="La page web doit contenir au plus 20 caractères")
-	@Pattern(regexp="[w]{3}\\.[a-z\\._-]+\\.[a-z\\.~/_-]{2,}", message="Exemple de page web valide : www.etu.univ-amu.fr")
-	*/
 	private String homePage;
 	
 	/**
