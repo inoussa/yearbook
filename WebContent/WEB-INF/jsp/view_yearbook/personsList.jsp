@@ -25,7 +25,7 @@
 				<c:when test="${person.id != null}">
 					<jsp:include page="../view_fragments/disconnect.jsp" />
 					
-					<h2>Liste des personnes de l'annuaire.</h2>
+					<h3>Liste des personnes de l'annuaire.</h3>
 				    <table>
 					    <c:forEach items="${listPersons}" var="person">
 					        <tr>
